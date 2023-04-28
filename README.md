@@ -1,5 +1,5 @@
 # RegWalls
 
-A Flutter wallpaper app using with Pexels API
+A Flutter wallpaper app using Pexels API
 
-Thanks [Anand Tujare](https://https://github.com/ctujare) for certain fixes
+Thanks [Anand Tujare](https://github.com/ctujare) for certain fixes
