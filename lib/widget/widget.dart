@@ -56,6 +56,10 @@ Widget wallpapersList({required List<WallpaperModel> wallpapers, context, requir
                 child: Hero(
                   tag: wallpaper.src!.portrait,
                   child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white24,
+                          borderRadius: BorderRadius.circular(18)
+                      ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(18),
                         child: Image.network(
