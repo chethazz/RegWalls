@@ -131,6 +131,7 @@ class _HomeState extends State<Home> {
           SizedBox(
             height: 50,
             child: ListView.builder(
+              physics: BouncingScrollPhysics(),
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 itemCount: categories.length,
                 shrinkWrap: true,

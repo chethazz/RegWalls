@@ -28,6 +28,7 @@ Widget wallpapersList({required List<WallpaperModel> wallpapers, context, requir
         horizontal: 20,
       ),
       child: GridView.builder(
+        physics: BouncingScrollPhysics(),
         shrinkWrap: true,
         controller: scrollController,
         itemCount: wallpapers.length,
