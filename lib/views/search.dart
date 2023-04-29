@@ -4,55 +4,65 @@ import 'package:regwalls/data/data.dart';
 import 'package:regwalls/model/wallpaper_mode.dart';
 import 'package:regwalls/widget/widget.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 
 class Search extends StatefulWidget {
   final String searchQuery;
-  Search({required this.searchQuery});
-
+  const Search({
+    super.key,
+    required this.searchQuery,
+  });
 
   @override
   State<Search> createState() => _SearchState();
 }
 
 class _SearchState extends State<Search> {
-
   List<WallpaperModel> wallpapers = [];
   final ScrollController _scrollController = ScrollController();
 
   TextEditingController searchController = TextEditingController();
 
-
   getSearchWallpapers(String query) async {
     var response = await http.get(
-      Uri.parse('https://api.pexels.com/v1/search?query=$query&per_page=20&page=1'),
+      Uri.parse(
+          'https://api.pexels.com/v1/search?query=$query&per_page=20&page=1'),
       headers: {"Authorization": apiKey},
     );
 
-    print(response.body.toString());
+    if (kDebugMode) {
+      print(response.body.toString());
+    }
 
     Map<String, dynamic> jsonData = jsonDecode(response.body);
     jsonData["photos"].forEach((element) {
-      print(element);
+      if (kDebugMode) {
+        print(element);
+      }
       WallpaperModel wallpaperModel = WallpaperModel();
       wallpaperModel = WallpaperModel.fromMap(element);
       wallpapers.add(wallpaperModel);
     });
 
-    setState(() {
-    });
+    setState(() {});
   }
 
   void fetchMoreSearchWallpapers(String query) async {
     var response = await http.get(
-      Uri.parse('https://api.pexels.com/v1/search?query=$query&per_page=20&page=${wallpapers.length ~/ 20 + 1}'),
+      Uri.parse(
+          'https://api.pexels.com/v1/search?query=$query&per_page=20&page=${wallpapers.length ~/ 20 + 1}'),
       headers: {"Authorization": apiKey},
     );
 
-    print(response.body.toString());
+    if (kDebugMode) {
+      print(response.body.toString());
+    }
 
     Map<String, dynamic> jsonData = jsonDecode(response.body);
     jsonData["photos"].forEach((element) {
-      print(element);
+      if (kDebugMode) {
+        print(element);
+      }
       WallpaperModel wallpaperModel = WallpaperModel();
       wallpaperModel = WallpaperModel.fromMap(element);
       wallpapers.add(wallpaperModel);
@@ -62,11 +72,11 @@ class _SearchState extends State<Search> {
   }
 
   void _scrollListener() {
-    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
       fetchMoreSearchWallpapers(widget.searchQuery);
     }
   }
-
 
   @override
   void initState() {
@@ -83,8 +93,7 @@ class _SearchState extends State<Search> {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
           title: brandName(),
-          elevation: 0.0
-      ),
+          elevation: 0.0),
       body: Container(
         color: Colors.black,
         child: Column(
@@ -106,7 +115,9 @@ class _SearchState extends State<Search> {
                           hintText: 'Search',
                           suffixIcon: GestureDetector(
                             onTap: () {
-                              print("Search ${searchController.text}");
+                              if (kDebugMode) {
+                                print("Search ${searchController.text}");
+                              }
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -116,7 +127,10 @@ class _SearchState extends State<Search> {
                                 ),
                               );
                             },
-                            child: const Icon(Icons.search, color: Colors.black,),
+                            child: const Icon(
+                              Icons.search,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),
@@ -128,12 +142,13 @@ class _SearchState extends State<Search> {
             const SizedBox(
               height: 20,
             ),
-            wallpapersList(wallpapers: wallpapers, context: context, scrollController: _scrollController),
+            wallpapersList(
+                wallpapers: wallpapers,
+                context: context,
+                scrollController: _scrollController),
           ],
         ),
       ),
     );
   }
 }
-
-

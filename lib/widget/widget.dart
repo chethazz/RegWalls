@@ -1,26 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:regwalls/model/wallpaper_mode.dart';
 import 'package:regwalls/views/image_view.dart';
-import 'dart:async';
-
-
 
 Widget brandName() {
   return Center(
     child: RichText(
       text: const TextSpan(
-        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.w600,
+        ),
         children: <TextSpan>[
-          TextSpan(text: 'Reg', style: TextStyle(color: Colors.white)),
-          TextSpan(text: 'Walls', style: TextStyle(color: Colors.grey)),
+          TextSpan(
+            text: 'Reg',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          TextSpan(
+            text: 'Walls',
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          ),
         ],
       ),
     ),
   );
 }
 
-Widget wallpapersList({required List<WallpaperModel> wallpapers, context, required ScrollController scrollController}) {
+Widget wallpapersList({
+  required List<WallpaperModel> wallpapers,
+  context,
+  required ScrollController scrollController,
+}) {
   return Expanded(
     child: Container(
       margin: const EdgeInsets.only(top: 20),
@@ -28,7 +41,7 @@ Widget wallpapersList({required List<WallpaperModel> wallpapers, context, requir
         horizontal: 20,
       ),
       child: GridView.builder(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         controller: scrollController,
         itemCount: wallpapers.length,
@@ -49,23 +62,31 @@ Widget wallpapersList({required List<WallpaperModel> wallpapers, context, requir
             return GridTile(
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ImageView(imgUrl: wallpaper.src!.portrait, originalUrl: wallpaper.src!.original)
-                  ));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImageView(
+                        imgUrl: wallpaper.src!.portrait,
+                        originalUrl: wallpaper.src!.original,
+                      ),
+                    ),
+                  );
                 },
                 child: Hero(
                   tag: wallpaper.src!.portrait,
                   child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white24,
-                          borderRadius: BorderRadius.circular(18)
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(18),
+                      child: Image.network(
+                        wallpaper.src!.portrait,
+                        fit: BoxFit.cover,
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(18),
-                        child: Image.network(
-                          wallpaper.src!.portrait,
-                          fit: BoxFit.cover,),
-                      )),
+                    ),
+                  ),
                 ),
               ),
             );
@@ -75,6 +96,3 @@ Widget wallpapersList({required List<WallpaperModel> wallpapers, context, requir
     ),
   );
 }
-
-
-
