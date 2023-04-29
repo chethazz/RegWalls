@@ -1,19 +1,23 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:regwalls/data/data.dart';
 import 'package:regwalls/model/wallpaper_mode.dart';
 import 'package:regwalls/widget/widget.dart';
 
-class Category extends StatefulWidget {
+class CategoryImage extends StatefulWidget {
   final String categoryName;
-  Category({required this.categoryName});
+  const CategoryImage({
+    super.key,
+    required this.categoryName,
+  });
 
   @override
-  State<Category> createState() => _CategoryState();
+  State<CategoryImage> createState() => _CategoryImageState();
 }
 
-class _CategoryState extends State<Category> {
+class _CategoryImageState extends State<CategoryImage> {
   final ScrollController _scrollController = ScrollController();
   List<WallpaperModel> wallpapers = [];
 
@@ -24,11 +28,15 @@ class _CategoryState extends State<Category> {
       headers: {"Authorization": apiKey},
     );
 
-    print(response.body.toString());
+    if (kDebugMode) {
+      print(response.body.toString());
+    }
 
     Map<String, dynamic> jsonData = jsonDecode(response.body);
     jsonData["photos"].forEach((element) {
-      print(element);
+      if (kDebugMode) {
+        print(element);
+      }
       WallpaperModel wallpaperModel = WallpaperModel();
       wallpaperModel = WallpaperModel.fromMap(element);
       wallpapers.add(wallpaperModel);
@@ -36,19 +44,23 @@ class _CategoryState extends State<Category> {
 
     setState(() {});
   }
-
 
   void fetchMoreCategoryWallpapers(String query) async {
     var response = await http.get(
-      Uri.parse('https://api.pexels.com/v1/search?query=$query&per_page=20&page=${wallpapers.length ~/ 20 + 1}'),
+      Uri.parse(
+          'https://api.pexels.com/v1/search?query=$query&per_page=20&page=${wallpapers.length ~/ 20 + 1}'),
       headers: {"Authorization": apiKey},
     );
 
-    print(response.body.toString());
+    if (kDebugMode) {
+      print(response.body.toString());
+    }
 
     Map<String, dynamic> jsonData = jsonDecode(response.body);
     jsonData["photos"].forEach((element) {
-      print(element);
+      if (kDebugMode) {
+        print(element);
+      }
       WallpaperModel wallpaperModel = WallpaperModel();
       wallpaperModel = WallpaperModel.fromMap(element);
       wallpapers.add(wallpaperModel);
@@ -57,14 +69,13 @@ class _CategoryState extends State<Category> {
     setState(() {});
   }
 
-
   void _scrollListener() {
-    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
       // User has scrolled to the end of the list, fetch more wallpapers
       fetchMoreCategoryWallpapers(widget.categoryName);
     }
   }
-
 
   @override
   void initState() {
@@ -80,8 +91,7 @@ class _CategoryState extends State<Category> {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
           title: brandName(),
-          elevation: 0.0
-      ),
+          elevation: 0.0),
       body: Container(
         color: Colors.black,
         child: Column(
@@ -95,11 +105,13 @@ class _CategoryState extends State<Category> {
                 margin: const EdgeInsets.symmetric(horizontal: 20),
               ),
             ),
-            wallpapersList(wallpapers: wallpapers, context: context, scrollController: _scrollController),
+            wallpapersList(
+                wallpapers: wallpapers,
+                context: context,
+                scrollController: _scrollController),
           ],
         ),
       ),
     );
   }
 }
-

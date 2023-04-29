@@ -5,18 +5,21 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ImageView extends StatefulWidget {
-  String imgUrl;
-  String originalUrl;
-  ImageView({super.key, required this.imgUrl, required this.originalUrl});
-
+  final String imgUrl;
+  final String originalUrl;
+  const ImageView({
+    super.key,
+    required this.imgUrl,
+    required this.originalUrl,
+  });
 
   @override
   State<ImageView> createState() => _ImageViewState();
 }
 
 class _ImageViewState extends State<ImageView> {
-  var filePath;
   bool _showContainer = false;
+  bool _downloading = false;
 
   @override
   void initState() {
@@ -28,7 +31,6 @@ class _ImageViewState extends State<ImageView> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return FocusScope(
@@ -37,7 +39,7 @@ class _ImageViewState extends State<ImageView> {
           children: [
             Hero(
               tag: widget.imgUrl,
-              child: Container(
+              child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Image.network(
@@ -84,10 +86,9 @@ class _ImageViewState extends State<ImageView> {
                                   child: Text(
                                     'High Quality',
                                     style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white
-                                    ),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white),
                                   ),
                                 ),
                               ],
@@ -113,10 +114,9 @@ class _ImageViewState extends State<ImageView> {
                               Text(
                                 'Original',
                                 style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white
-                                ),
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white),
                               ),
                             ],
                           ),
@@ -127,46 +127,109 @@ class _ImageViewState extends State<ImageView> {
                 ),
               ),
             ),
+            _downloading
+                ? Container(
+                    color: Colors.black.withOpacity(0.5),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          CircularProgressIndicator(),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Downloading...",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),
     );
   }
 
-
   _save() async {
+    setState(() {
+      _downloading = true;
+    });
     var permissionStatus = await _askPermission();
 
     if (permissionStatus) {
-
       var downloadUrl = widget.imgUrl;
-      var response = await Dio().get(downloadUrl,
-          options: Options(responseType: ResponseType.bytes));
+      var response = await Dio()
+          .get(downloadUrl, options: Options(responseType: ResponseType.bytes));
       final result =
           await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
-      Navigator.pop(context);
+
+      setState(() {
+        _downloading = true;
+      });
+
+      if (result['isSuccess'] == true) {
+        SnackBar snackBar = const SnackBar(
+          content: Text("Image Saved"),
+          backgroundColor: Colors.green,
+        );
+
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+
+      if (mounted) {
+        Navigator.pop(context);
+      }
     }
   }
 
   _saveOriginal() async {
+    setState(() {
+      _downloading = true;
+    });
     var permissionStatus = await _askPermission();
 
     if (permissionStatus) {
-
       var downloadUrl = widget.originalUrl;
-      var response = await Dio().get(downloadUrl,
-          options: Options(responseType: ResponseType.bytes));
-      final result =
-      await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
-      Navigator.pop(context);
+      var response = await Dio().get(
+        downloadUrl,
+        options: Options(
+          responseType: ResponseType.bytes,
+        ),
+      );
+      final result = await ImageGallerySaver.saveImage(
+        Uint8List.fromList(response.data),
+      );
+
+      setState(() {
+        _downloading = false;
+      });
+
+      if (result['isSuccess'] == true) {
+        SnackBar snackBar = const SnackBar(
+          content: Text("Image Saved"),
+          backgroundColor: Colors.green,
+        );
+
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+
+      if (mounted) {
+        Navigator.pop(context);
+      }
     }
   }
 
   _askPermission() async {
-      if (await Permission.photos.request().isGranted || await Permission.storage.request().isGranted ) {
-        return true;
-      } else {
-        openAppSettings();
-      }
+    if (await Permission.photos.request().isGranted ||
+        await Permission.storage.request().isGranted) {
+      return true;
+    } else {
+      openAppSettings();
     }
   }
+}

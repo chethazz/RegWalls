@@ -1,13 +1,14 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:regwalls/data/data.dart';
 import 'package:regwalls/model/categories_model.dart';
 import 'package:regwalls/model/wallpaper_mode.dart';
-import 'package:regwalls/views/category.dart';
-import 'package:regwalls/views/image_view.dart';
 import 'package:regwalls/views/search.dart';
 import 'package:regwalls/widget/widget.dart';
 import 'package:http/http.dart' as http;
+
+import 'category_tile.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -20,7 +21,7 @@ class _HomeState extends State<Home> {
   final ScrollController _scrollController = ScrollController();
   List<CategoriesModel> categories = [];
   List<WallpaperModel> wallpapers = [];
-  TextEditingController searchController = new TextEditingController();
+  TextEditingController searchController = TextEditingController();
 
   getTrendingWallpapers() async {
     var response = await http.get(
@@ -28,10 +29,8 @@ class _HomeState extends State<Home> {
       headers: {"Authorization": apiKey},
     );
 
-
     Map<String, dynamic> jsonData = jsonDecode(response.body);
     jsonData["photos"].forEach((element) {
-
       WallpaperModel wallpaperModel = WallpaperModel();
       wallpaperModel = WallpaperModel.fromMap(element);
       wallpapers.add(wallpaperModel);
@@ -40,10 +39,10 @@ class _HomeState extends State<Home> {
     setState(() {});
   }
 
-
   void fetchMoreWallpapers() async {
     var response = await http.get(
-      Uri.parse('https://api.pexels.com/v1/curated?per_page=100&page=${wallpapers.length ~/ 20 + 1}'),
+      Uri.parse(
+          'https://api.pexels.com/v1/curated?per_page=100&page=${wallpapers.length ~/ 20 + 1}'),
       headers: {"Authorization": apiKey},
     );
 
@@ -60,14 +59,13 @@ class _HomeState extends State<Home> {
     });
   }
 
-
   void _scrollListener() {
-    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
       // User has scrolled to the end of the list, fetch more wallpapers
       fetchMoreWallpapers();
     }
   }
-
 
   @override
   void initState() {
@@ -90,10 +88,15 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20)),
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            margin: const EdgeInsets.symmetric(horizontal: 20),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+            ),
+            margin: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
             child: Row(
               children: [
                 Expanded(
@@ -107,7 +110,9 @@ class _HomeState extends State<Home> {
                       ),
                       suffixIcon: GestureDetector(
                         onTap: () {
-                          print("Search ${searchController.text}");
+                          if (kDebugMode) {
+                            print("Search ${searchController.text}");
+                          }
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -117,7 +122,10 @@ class _HomeState extends State<Home> {
                             ),
                           );
                         },
-                        child: const Icon(Icons.search, color: Colors.black,),
+                        child: const Icon(
+                          Icons.search,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
@@ -131,57 +139,26 @@ class _HomeState extends State<Home> {
           SizedBox(
             height: 50,
             child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                itemCount: categories.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return CategoryTile(
-                    title: categories[index].categoryName,
-                  );
-                }),
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              itemCount: categories.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return CategoryTile(
+                  title: categories[index].categoryName,
+                );
+              },
+            ),
           ),
-          wallpapersList(wallpapers: wallpapers, context: context, scrollController: _scrollController)
-        ],
-      ),
-    );
-  }
-}
-
-
-class CategoryTile extends StatelessWidget {
-  final String title;
-  const CategoryTile({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) => Category(
-            categoryName: title.toLowerCase()
+          wallpapersList(
+            wallpapers: wallpapers,
+            context: context,
+            scrollController: _scrollController,
           )
-        ));
-      },
-      child: Container(
-        margin: const EdgeInsets.only(right: 8),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.white24,
-          ),
-          height: 50,
-          width: 100,
-          alignment: Alignment.center,
-          child: Text(
-            title,
-            style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 16),
-          ),
-        ),
+        ],
       ),
     );
   }

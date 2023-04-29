@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:regwalls/views/home.dart';
 import 'package:flutter/services.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -19,6 +18,7 @@ class MyApp extends StatelessWidget {
       systemNavigationBarColor: Colors.black,
     ));
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'RegWalls',
       theme: ThemeData(
         primaryColor: Colors.white,
