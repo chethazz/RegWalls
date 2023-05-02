@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:regwalls/model/wallpaper_mode.dart';
 import 'package:regwalls/views/image_view.dart';
 
 Widget brandName() {
   return Center(
     child: RichText(
-      text: const TextSpan(
+      text:TextSpan(
         style: TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.w600,
+          fontFamily: GoogleFonts.ubuntu().fontFamily,
         ),
-        children: <TextSpan>[
+        children: const <TextSpan>[
           TextSpan(
             text: 'Reg',
             style: TextStyle(

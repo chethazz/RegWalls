@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'RegWalls',
       theme: ThemeData(
         primaryColor: Colors.white,
-        textTheme: GoogleFonts.aBeeZeeTextTheme(),
+        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       home: const Home(),
     );
