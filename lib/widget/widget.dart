@@ -6,7 +6,7 @@ import 'package:regwalls/views/image_view.dart';
 Widget brandName() {
   return Center(
     child: RichText(
-      text:TextSpan(
+      text: TextSpan(
         style: TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.w600,

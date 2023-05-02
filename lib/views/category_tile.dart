@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'category_image.dart';
 
 class CategoryTile extends StatelessWidget {
   final String title;
+
   const CategoryTile({super.key, required this.title});
 
   @override

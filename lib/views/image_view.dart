@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 class ImageView extends StatefulWidget {
   final String imgUrl;
   final String originalUrl;
+
   const ImageView({
     super.key,
     required this.imgUrl,

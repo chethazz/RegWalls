@@ -8,6 +8,7 @@ import 'package:regwalls/widget/widget.dart';
 
 class CategoryImage extends StatefulWidget {
   final String categoryName;
+
   const CategoryImage({
     super.key,
     required this.categoryName,

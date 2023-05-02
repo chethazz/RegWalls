@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 
 class Search extends StatefulWidget {
   final String searchQuery;
+
   const Search({
     super.key,
     required this.searchQuery,
