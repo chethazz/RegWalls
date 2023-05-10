@@ -23,13 +23,13 @@ class CategoryTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             color: Colors.white24,
           ),
-          height: 50,
-          width: 100,
+          height: 40,
+          width: 90,
           alignment: Alignment.center,
           child: Text(
             title,
             style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
+                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14),
           ),
         ),
       ),
