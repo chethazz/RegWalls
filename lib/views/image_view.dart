@@ -179,7 +179,8 @@ class _ImageViewState extends State<ImageView> {
                           child: const Align(
                             child: Text(
                               'Set as wallpaper',
-                              style: TextStyle(color: Colors.white),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 12),
                             ),
                           ),
                         ),
