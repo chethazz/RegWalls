@@ -54,6 +54,7 @@ class _ImageViewState extends State<ImageView> {
               child: Visibility(
                 visible: _showContainer,
                 child: Container(
+                  padding: EdgeInsets.only(top: 20),
                   decoration: const BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.only(
@@ -61,67 +62,85 @@ class _ImageViewState extends State<ImageView> {
                       topLeft: Radius.circular(20),
                     ),
                   ),
-                  height: MediaQuery.of(context).size.height / 8,
+                  height: MediaQuery.of(context).size.height / 6,
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          _save();
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 35),
-                          height: 42,
-                          width: MediaQuery.of(context).size.width / 2.3,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white24,
+                      Container(
+                        width: MediaQuery.of(context).size.width/1.096,
+                        height: 42,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.white24,
+                        ),
+                        child: const Align(
+                          child: Text(
+                              'Set as wallpaper',
+                            style: TextStyle(color: Colors.white),
                           ),
-                          child: Align(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Align(
-                                  child: Text(
-                                    'High Quality',
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _save();
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(top: 15),
+                              height: 42,
+                              width: MediaQuery.of(context).size.width / 2.3,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.white24,
+                              ),
+                              child: Align(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Align(
+                                      child: Text(
+                                        'High Quality',
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              _saveOriginal();
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(top: 15),
+                              width: MediaQuery.of(context).size.width / 2.3,
+                              height: 42,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.white24,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                    'Original',
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.w400,
                                         color: Colors.white),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _saveOriginal();
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 35),
-                          width: MediaQuery.of(context).size.width / 2.3,
-                          height: 42,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white24,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                'Original',
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        ),
+                        ],
                       ),
                     ],
                   ),
