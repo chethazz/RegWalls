@@ -175,7 +175,7 @@ class _ImageViewState extends State<ImageView> {
                                       child: Text(
                                         'High Quality',
                                         style: TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w400,
                                             color: Colors.white),
                                       ),
@@ -203,7 +203,7 @@ class _ImageViewState extends State<ImageView> {
                                   Text(
                                     'Original',
                                     style: TextStyle(
-                                        fontSize: 13,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w400,
                                         color: Colors.white),
                                   ),
