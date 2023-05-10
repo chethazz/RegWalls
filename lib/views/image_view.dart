@@ -69,17 +69,22 @@ class _ImageViewState extends State<ImageView> {
                   alignment: Alignment.bottomCenter,
                   child: Column(
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width/1.096,
-                        height: 42,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.white24,
-                        ),
-                        child: const Align(
-                          child: Text(
-                              'Set as wallpaper',
-                            style: TextStyle(color: Colors.white),
+                      GestureDetector(
+                        onTap: () {
+                          setWallpaper(widget.originalUrl);
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width/1.096,
+                          height: 42,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white24,
+                          ),
+                          child: const Align(
+                            child: Text(
+                                'Set as wallpaper',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
