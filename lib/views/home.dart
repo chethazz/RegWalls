@@ -138,19 +138,21 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(
             height: 50,
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+            child: ScrollConfiguration(
+              behavior: const ScrollBehavior(androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                itemCount: categories.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return CategoryTile(
+                    title: categories[index].categoryName,
+                  );
+                },
               ),
-              itemCount: categories.length,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return CategoryTile(
-                  title: categories[index].categoryName,
-                );
-              },
             ),
           ),
           wallpapersList(
