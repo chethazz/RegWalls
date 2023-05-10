@@ -6,7 +6,6 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 
-
 class ImageView extends StatefulWidget {
   final String imgUrl;
   final String originalUrl;
@@ -34,7 +33,6 @@ class _ImageViewState extends State<ImageView> {
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -85,34 +83,49 @@ class _ImageViewState extends State<ImageView> {
                                 content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white24,
-                                      ),
-                                      width: MediaQuery.of(context).size.width/1.7,
-                                      child: const Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        _setLockscreen();
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.white24,
+                                        ),
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                1.7,
+                                        child: const Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
                                             'Lock screen',
-                                              style: TextStyle(color: Colors.white, fontSize: 12),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12),
+                                          ),
                                         ),
                                       ),
                                     ),
                                     Container(
-                                      margin: const EdgeInsets.symmetric(vertical: 10),
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 10),
                                       padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.white24,
                                       ),
-                                      width: MediaQuery.of(context).size.width/1.7,
+                                      width: MediaQuery.of(context).size.width /
+                                          1.7,
                                       child: const Align(
                                         alignment: Alignment.center,
                                         child: Text(
                                           'Home screen',
-                                          style: TextStyle(color: Colors.white, fontSize: 12),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
                                         ),
                                       ),
                                     ),
@@ -122,12 +135,15 @@ class _ImageViewState extends State<ImageView> {
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.white24,
                                       ),
-                                      width: MediaQuery.of(context).size.width/1.7,
+                                      width: MediaQuery.of(context).size.width /
+                                          1.7,
                                       child: const Align(
                                         alignment: Alignment.center,
                                         child: Text(
                                           'Both',
-                                          style: TextStyle(color: Colors.white, fontSize: 12),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
                                         ),
                                       ),
                                     ),
@@ -138,7 +154,7 @@ class _ImageViewState extends State<ImageView> {
                           );
                         },
                         child: Container(
-                          width: MediaQuery.of(context).size.width/1.096,
+                          width: MediaQuery.of(context).size.width / 1.096,
                           height: 42,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
@@ -146,7 +162,7 @@ class _ImageViewState extends State<ImageView> {
                           ),
                           child: const Align(
                             child: Text(
-                                'Set as wallpaper',
+                              'Set as wallpaper',
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -244,16 +260,17 @@ class _ImageViewState extends State<ImageView> {
     );
   }
 
-
-  Future<void> setWallpaper(String imageUrl) async {
+  _setLockscreen() async {
     setState(() {
       _downloading = true;
     });
+
+    String imageUrl = widget.originalUrl;
     var status = await Permission.photos.request();
     if (status.isGranted) {
       var file = await DefaultCacheManager().getSingleFile(imageUrl);
       await WallpaperManager.setWallpaperFromFile(
-          file.path, WallpaperManager.BOTH_SCREEN);
+          file.path, WallpaperManager.LOCK_SCREEN);
     } else {
       throw Exception('Permission denied');
     }
