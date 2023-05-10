@@ -181,7 +181,9 @@ class _ImageViewState extends State<ImageView> {
   }
 
   Future<void> setWallpaper(String imageUrl) async {
-
+    setState(() {
+      _downloading = true;
+    });
     var status = await Permission.photos.request();
     if (status.isGranted) {
       var file = await DefaultCacheManager().getSingleFile(imageUrl);
