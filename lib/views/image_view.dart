@@ -85,8 +85,8 @@ class _ImageViewState extends State<ImageView> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
+                                        _setLockScreen();
                                         Navigator.of(context).pop();
-                                        _setLockscreen();
                                       },
                                       child: Container(
                                         padding: const EdgeInsets.all(10),
@@ -109,23 +109,29 @@ class _ImageViewState extends State<ImageView> {
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 10),
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white24,
-                                      ),
-                                      width: MediaQuery.of(context).size.width /
-                                          1.7,
-                                      child: const Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'Home screen',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12),
+                                    GestureDetector(
+                                      onTap: () {
+                                        _setHomeScreen();
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 10),
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          color: Colors.white24,
+                                        ),
+                                        width: MediaQuery.of(context).size.width /
+                                            1.7,
+                                        child: const Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            'Home screen',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -260,7 +266,7 @@ class _ImageViewState extends State<ImageView> {
     );
   }
 
-  _setLockscreen() async {
+  _setLockScreen() async {
     setState(() {
       _downloading = true;
     });
@@ -275,6 +281,23 @@ class _ImageViewState extends State<ImageView> {
       throw Exception('Permission denied');
     }
   }
+
+  _setHomeScreen() async {
+    setState(() {
+      _downloading = true;
+    });
+
+    String imageUrl = widget.originalUrl;
+    var status = await Permission.photos.request();
+    if (status.isGranted) {
+      var file = await DefaultCacheManager().getSingleFile(imageUrl);
+      await WallpaperManager.setWallpaperFromFile(
+          file.path, WallpaperManager.HOME_SCREEN);
+    } else {
+      throw Exception('Permission denied');
+    }
+  }
+
 
   _save() async {
     setState(() {
