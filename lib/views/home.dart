@@ -107,6 +107,7 @@ class _HomeState extends State<Home> {
                       hintText: 'Search',
                       hintStyle: const TextStyle(
                         color: Colors.black,
+                        fontSize: 14,
                       ),
                       suffixIcon: GestureDetector(
                         onTap: () {
