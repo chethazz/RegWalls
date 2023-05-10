@@ -5,8 +5,6 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
-import 'package:cool_alert/cool_alert.dart';
-
 
 class ImageView extends StatefulWidget {
   final String imgUrl;
@@ -58,7 +56,7 @@ class _ImageViewState extends State<ImageView> {
               child: Visibility(
                 visible: _showContainer,
                 child: Container(
-                  padding: EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 20),
                   decoration: const BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.only(
@@ -77,12 +75,12 @@ class _ImageViewState extends State<ImageView> {
                             context: context,
                             builder: (BuildContext context) {
                               final AnimationController controller =
-                              AnimationController(
+                                  AnimationController(
                                 duration: const Duration(milliseconds: 300),
                                 vsync: Navigator.of(context),
                               );
                               final Animation<Offset> slideAnimation =
-                              Tween<Offset>(
+                                  Tween<Offset>(
                                 begin: const Offset(-0.1, 0),
                                 end: const Offset(0, 0),
                               ).animate(
@@ -114,12 +112,12 @@ class _ImageViewState extends State<ImageView> {
                                           padding: const EdgeInsets.all(10),
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                            BorderRadius.circular(10),
+                                                BorderRadius.circular(10),
                                             color: Colors.white24,
                                           ),
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width /
+                                                  .size
+                                                  .width /
                                               1.7,
                                           child: const Align(
                                             alignment: Alignment.center,
@@ -143,12 +141,12 @@ class _ImageViewState extends State<ImageView> {
                                           padding: const EdgeInsets.all(10),
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                            BorderRadius.circular(10),
+                                                BorderRadius.circular(10),
                                             color: Colors.white24,
                                           ),
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width /
+                                                  .size
+                                                  .width /
                                               1.7,
                                           child: const Align(
                                             alignment: Alignment.center,
@@ -170,12 +168,12 @@ class _ImageViewState extends State<ImageView> {
                                           padding: const EdgeInsets.all(10),
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                            BorderRadius.circular(10),
+                                                BorderRadius.circular(10),
                                             color: Colors.white24,
                                           ),
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width /
+                                                  .size
+                                                  .width /
                                               1.7,
                                           child: const Align(
                                             alignment: Alignment.center,
@@ -206,7 +204,7 @@ class _ImageViewState extends State<ImageView> {
                             child: Text(
                               'Set as wallpaper',
                               style:
-                              TextStyle(color: Colors.white, fontSize: 12),
+                                  TextStyle(color: Colors.white, fontSize: 12),
                             ),
                           ),
                         ),
