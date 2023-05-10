@@ -6,6 +6,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 
+
 class ImageView extends StatefulWidget {
   final String imgUrl;
   final String originalUrl;
@@ -33,6 +34,7 @@ class _ImageViewState extends State<ImageView> {
       });
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +73,69 @@ class _ImageViewState extends State<ImageView> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          setWallpaper(widget.originalUrl);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                contentPadding: const EdgeInsets.all(16),
+                                backgroundColor: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white24,
+                                      ),
+                                      width: MediaQuery.of(context).size.width/1.7,
+                                      child: const Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                            'Lock screen',
+                                              style: TextStyle(color: Colors.white, fontSize: 12),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(vertical: 10),
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white24,
+                                      ),
+                                      width: MediaQuery.of(context).size.width/1.7,
+                                      child: const Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Home screen',
+                                          style: TextStyle(color: Colors.white, fontSize: 12),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white24,
+                                      ),
+                                      width: MediaQuery.of(context).size.width/1.7,
+                                      child: const Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Both',
+                                          style: TextStyle(color: Colors.white, fontSize: 12),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/1.096,
@@ -179,6 +243,7 @@ class _ImageViewState extends State<ImageView> {
       ),
     );
   }
+
 
   Future<void> setWallpaper(String imageUrl) async {
     setState(() {
