@@ -5,6 +5,8 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
+import 'package:cool_alert/cool_alert.dart';
+
 
 class ImageView extends StatefulWidget {
   final String imgUrl;
@@ -74,96 +76,120 @@ class _ImageViewState extends State<ImageView> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return AlertDialog(
-                                contentPadding: const EdgeInsets.all(16),
-                                backgroundColor: Colors.black,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                              final AnimationController controller =
+                              AnimationController(
+                                duration: const Duration(milliseconds: 300),
+                                vsync: Navigator.of(context),
+                              );
+                              final Animation<Offset> slideAnimation =
+                              Tween<Offset>(
+                                begin: const Offset(-0.1, 0),
+                                end: const Offset(0, 0),
+                              ).animate(
+                                CurvedAnimation(
+                                  parent: controller,
+                                  curve: Curves.fastOutSlowIn,
                                 ),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        _setLockScreen();
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.white24,
-                                        ),
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                1.7,
-                                        child: const Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Lock screen',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12),
+                              );
+
+                              controller.forward();
+
+                              return SlideTransition(
+                                position: slideAnimation,
+                                child: AlertDialog(
+                                  contentPadding: const EdgeInsets.all(16),
+                                  backgroundColor: Colors.black,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          _setLockScreen();
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                            color: Colors.white24,
+                                          ),
+                                          width: MediaQuery.of(context)
+                                              .size
+                                              .width /
+                                              1.7,
+                                          child: const Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              'Lock screen',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        _setHomeScreen();
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 10),
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.white24,
-                                        ),
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                1.7,
-                                        child: const Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Home screen',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12),
+                                      GestureDetector(
+                                        onTap: () {
+                                          _setHomeScreen();
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                            color: Colors.white24,
+                                          ),
+                                          width: MediaQuery.of(context)
+                                              .size
+                                              .width /
+                                              1.7,
+                                          child: const Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              'Home screen',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        _setBoth();
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.white24,
-                                        ),
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                1.7,
-                                        child: const Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Both',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12),
+                                      GestureDetector(
+                                        onTap: () {
+                                          _setBoth();
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                            color: Colors.white24,
+                                          ),
+                                          width: MediaQuery.of(context)
+                                              .size
+                                              .width /
+                                              1.7,
+                                          child: const Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              'Both',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               );
                             },
@@ -180,7 +206,7 @@ class _ImageViewState extends State<ImageView> {
                             child: Text(
                               'Set as wallpaper',
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
+                              TextStyle(color: Colors.white, fontSize: 12),
                             ),
                           ),
                         ),
