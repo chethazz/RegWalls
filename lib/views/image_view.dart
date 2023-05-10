@@ -119,11 +119,13 @@ class _ImageViewState extends State<ImageView> {
                                             vertical: 10),
                                         padding: const EdgeInsets.all(10),
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           color: Colors.white24,
                                         ),
-                                        width: MediaQuery.of(context).size.width /
-                                            1.7,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                1.7,
                                         child: const Align(
                                           alignment: Alignment.center,
                                           child: Text(
@@ -135,21 +137,29 @@ class _ImageViewState extends State<ImageView> {
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white24,
-                                      ),
-                                      width: MediaQuery.of(context).size.width /
-                                          1.7,
-                                      child: const Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'Both',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12),
+                                    GestureDetector(
+                                      onTap: () {
+                                        _setBoth();
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.white24,
+                                        ),
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                1.7,
+                                        child: const Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            'Both',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -298,6 +308,21 @@ class _ImageViewState extends State<ImageView> {
     }
   }
 
+  _setBoth() async {
+    setState(() {
+      _downloading = true;
+    });
+
+    String imageUrl = widget.originalUrl;
+    var status = await Permission.photos.request();
+    if (status.isGranted) {
+      var file = await DefaultCacheManager().getSingleFile(imageUrl);
+      await WallpaperManager.setWallpaperFromFile(
+          file.path, WallpaperManager.BOTH_SCREEN);
+    } else {
+      throw Exception('Permission denied');
+    }
+  }
 
   _save() async {
     setState(() {
