@@ -38,6 +38,8 @@ dependencies:
   cached_network_image: ^3.2.3
   google_fonts: ^4.0.3
   flutter_launcher_icons: ^0.13.1
+  flutter_wallpaper_manager: ^0.0.3
+  flutter_cache_manager: ^3.3.0
 
 
 

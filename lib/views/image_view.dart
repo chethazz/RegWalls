@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 
 class ImageView extends StatefulWidget {
   final String imgUrl;
@@ -171,6 +173,18 @@ class _ImageViewState extends State<ImageView> {
         ),
       ),
     );
+  }
+
+  Future<void> setWallpaper(String imageUrl) async {
+
+    var status = await Permission.photos.request();
+    if (status.isGranted) {
+      var file = await DefaultCacheManager().getSingleFile(imageUrl);
+      await WallpaperManager.setWallpaperFromFile(
+          file.path, WallpaperManager.BOTH_SCREEN);
+    } else {
+      throw Exception('Permission denied');
+    }
   }
 
   _save() async {
