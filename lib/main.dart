@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'RegWalls',
       theme: ThemeData(
+        useMaterial3: true,
         primaryColor: Colors.white,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
