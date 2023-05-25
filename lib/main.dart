@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:regwalls/views/home.dart';
 import 'package:flutter/services.dart';
+import 'package:regwalls/widget/onboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +27,22 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      home: const Home(),
+      home: FutureBuilder<SharedPreferences>(
+        future: SharedPreferences.getInstance(),
+        builder:
+            (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+          if (snapshot.hasData) {
+            SharedPreferences? prefs = snapshot.data;
+            bool isFirstRun = prefs?.getBool('isFirstRun') ?? false;
+            if (!isFirstRun) {
+              prefs?.setBool('isFirstRun', true);
+            }
+            return isFirstRun ? const Home() : const OnBoard();
+          } else {
+            return const CircularProgressIndicator();
+          }
+        },
+      ),
     );
   }
 }
