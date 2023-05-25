@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             if (!isFirstRun) {
               prefs?.setBool('isFirstRun', true);
             }
-            return isFirstRun ? const Home() : const OnBoard();
+            return isFirstRun ? const OnBoard() : const OnBoard();
           } else {
             return const CircularProgressIndicator();
           }

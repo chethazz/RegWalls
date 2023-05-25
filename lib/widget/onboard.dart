@@ -83,23 +83,31 @@ class _OnBoardState extends State<OnBoard> {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Home()));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white54,
-                          borderRadius: BorderRadius.circular(18)),
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.all(12),
-                      margin: const EdgeInsets.all(16),
-                      height: 50,
-                      child: const Text('Move on'),
+                  Container(
+                    color: Colors.transparent,
+                    padding: const EdgeInsets.all(16),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white54,
+                        onPrimary: Colors.black,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Home()));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(18)),
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.all(12),
+                        height: 50,
+                        child: const Text('Move on'),
+                      ),
                     ),
                   )
                 ],
