@@ -140,7 +140,9 @@ class _HomeState extends State<Home> {
           SizedBox(
             height: 50,
             child: ScrollConfiguration(
-              behavior: const ScrollBehavior(androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
+              behavior: const ScrollBehavior(
+                  androidOverscrollIndicator:
+                      AndroidOverscrollIndicator.stretch),
               child: ListView.builder(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,

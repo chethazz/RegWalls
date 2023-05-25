@@ -13,51 +13,51 @@ class _OnBoardState extends State<OnBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Padding(padding: const EdgeInsets.all(0),
-      child:
-        Stack(
+      body: Padding(
+        padding: const EdgeInsets.all(0),
+        child: Stack(
           children: [
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: Image.asset('assets/images/onboard.jpg',
+              child: Image.asset(
+                'assets/images/onboard.jpg',
                 fit: BoxFit.fill,
               ),
             ),
-      Align(
-        alignment: Alignment.topCenter,
-        child: Container(
-          width: MediaQuery.of(context).size.width/2.5,
-          height: MediaQuery.of(context).size.height/16,
-          margin: EdgeInsets.only(top: 150),
-          child: Center(
-            child: RichText(
-              text: TextSpan(
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.height/28,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: GoogleFonts.ubuntu().fontFamily,
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                width: MediaQuery.of(context).size.width / 2.5,
+                height: MediaQuery.of(context).size.height / 16,
+                margin: const EdgeInsets.only(top: 150),
+                child: Center(
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height / 28,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: GoogleFonts.ubuntu().fontFamily,
+                      ),
+                      children: const <TextSpan>[
+                        TextSpan(
+                          text: 'Reg',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Walls',
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                children: const <TextSpan>[
-                  TextSpan(
-                    text: 'Reg',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  TextSpan(
-                    text: 'Walls',
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
               ),
             ),
-          ),
-        ),
-      ),
             Center(
               child: Stack(
                 alignment: Alignment.bottomCenter,
@@ -68,30 +68,32 @@ class _OnBoardState extends State<OnBoard> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color: Colors.white54,
-                          borderRadius: BorderRadius.circular(18)
-                      ),
+                          borderRadius: BorderRadius.circular(18)),
                       width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(12),
-                      margin: EdgeInsets.only(left: 16, right: 16, bottom: 80),
+                      padding: const EdgeInsets.all(12),
+                      margin: const EdgeInsets.only(
+                          left: 16, right: 16, bottom: 80),
                       height: MediaQuery.of(context).size.height / 10,
-
-                      child: const Text('Your wallpaper defines your personality....'
-                          '\nAre you ready to define yourself?',
-                      style: TextStyle(fontSize: 16,),
+                      child: const Text(
+                        'Your wallpaper defines your personality....'
+                        '\nAre you ready to define yourself?',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => Home())
-                      );
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Home()));
                     },
                     child: Container(
                       decoration: BoxDecoration(
                           color: Colors.white54,
-                        borderRadius: BorderRadius.circular(18)
-                      ),
+                          borderRadius: BorderRadius.circular(18)),
                       alignment: Alignment.center,
                       width: MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.all(12),

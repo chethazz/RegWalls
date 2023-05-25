@@ -43,7 +43,8 @@ Widget wallpapersList({
         horizontal: 20,
       ),
       child: ScrollConfiguration(
-        behavior: const ScrollBehavior(androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
+        behavior: const ScrollBehavior(
+            androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
         child: GridView.builder(
           shrinkWrap: true,
           controller: scrollController,
