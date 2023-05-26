@@ -65,30 +65,40 @@ class _OnBoardState extends State<OnBoard> {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Colors.white54,
-                          borderRadius: BorderRadius.circular(18)),
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.all(12),
-                      margin: const EdgeInsets.only(
-                          left: 16, right: 16, bottom: 80),
-                      height: MediaQuery.of(context).size.height / 10,
-                      child: const Text(
-                        'Your wallpaper defines your personality....'
-                        '\nAre you ready to define yourself?',
-                        style: TextStyle(
-                          fontSize: 16,
+                      height: MediaQuery.of(context).size.height/2.5,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.black, Colors.transparent],
+                          stops: [0.2, 0.8],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                      ),
+                      child: Container(
+                        alignment: Alignment.bottomCenter,
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.only(left: 12, right: 12, bottom: 18),
+                        margin: const EdgeInsets.only(
+                            left: 16, right: 16, bottom: 100),
+                        height: MediaQuery.of(context).size.height / 10,
+                        child: const Text(
+                          'Your wallpaper defines your personality....'
+                          '\nAre you ready to define yourself?',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white
+                          ),
                         ),
                       ),
                     ),
                   ),
                   Container(
                     color: Colors.transparent,
+                    margin: EdgeInsets.only(bottom: 20),
                     padding: const EdgeInsets.all(16),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.white54,
+                        primary: Colors.white70,
                         onPrimary: Colors.black,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))
                       ),
@@ -102,16 +112,15 @@ class _OnBoardState extends State<OnBoard> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Colors.transparent,
                             borderRadius: BorderRadius.circular(18)),
                         alignment: Alignment.center,
                         width: MediaQuery.of(context).size.width,
                         padding: const EdgeInsets.all(12),
                         height: 50,
-                        child: const Text('Move on'),
+                        child: const Text('Move on', style: TextStyle(color: Colors.white),),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
