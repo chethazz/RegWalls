@@ -93,10 +93,12 @@ class _OnBoardState extends State<OnBoard> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))
                       ),
                       onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Home()));
+                        Future.delayed(const Duration(milliseconds: 150), () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Home()));
+                        });
                       },
                       child: Container(
                         decoration: BoxDecoration(

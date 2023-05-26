@@ -24,11 +24,13 @@ class CategoryTile extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      CategoryImage(categoryName: title.toLowerCase())));
+          Future.delayed(const Duration(milliseconds: 150), () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        CategoryImage(categoryName: title.toLowerCase())));
+          });
         },
         child: Container(
           alignment: Alignment.center,

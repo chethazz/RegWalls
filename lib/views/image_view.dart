@@ -123,8 +123,10 @@ class _ImageViewState extends State<ImageView> {
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(10))),
                                             onPressed: () {
-                                              _setLockScreen();
-                                              Navigator.of(context).pop();
+                                              Future.delayed(const Duration(milliseconds: 150), () {
+                                                _setLockScreen();
+                                                Navigator.of(context).pop();
+                                              });
                                             },
                                             child: const Align(
                                               alignment: Alignment.center,
@@ -148,8 +150,10 @@ class _ImageViewState extends State<ImageView> {
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(10))),
                                             onPressed: () {
-                                              _setHomeScreen();
-                                              Navigator.of(context).pop();
+                                              Future.delayed(const Duration(milliseconds: 150), () {
+                                                _setHomeScreen();
+                                                Navigator.of(context).pop();
+                                              });
                                             },
                                             child: const Align(
                                               alignment: Alignment.center,
@@ -172,8 +176,10 @@ class _ImageViewState extends State<ImageView> {
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(10))),
                                             onPressed: () {
-                                              _setBoth();
-                                              Navigator.of(context).pop();
+                                              Future.delayed(const Duration(milliseconds: 150), () {
+                                                _setBoth();
+                                                Navigator.of(context).pop();
+                                              });
                                             },
                                             child: const Align(
                                               alignment: Alignment.center,
