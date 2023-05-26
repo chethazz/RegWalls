@@ -38,6 +38,7 @@ class _ImageViewState extends State<ImageView> {
   Widget build(BuildContext context) {
     return FocusScope(
       child: Scaffold(
+        backgroundColor: Colors.black,
         body: Stack(
           children: [
             Hero(
