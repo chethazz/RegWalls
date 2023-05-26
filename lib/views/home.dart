@@ -138,7 +138,7 @@ class _HomeState extends State<Home> {
             height: 16,
           ),
           SizedBox(
-            height: 50,
+            height: 45,
             child: ScrollConfiguration(
               behavior: const ScrollBehavior(
                   androidOverscrollIndicator:

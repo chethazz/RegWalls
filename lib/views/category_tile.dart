@@ -16,12 +16,12 @@ class CategoryTile extends StatelessWidget {
     ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(vertical: 14),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           primary: Colors.white24,
           onPrimary: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15)
-          )
+          ),
         ),
         onPressed: () {
           Navigator.push(
@@ -32,11 +32,12 @@ class CategoryTile extends StatelessWidget {
         },
         child: Container(
           alignment: Alignment.center,
-          width: 90,
+          width: 80,
+          height: 26,
           child: Text(
             title,
             style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14),
+                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 12),
           ),
         ),
         ),
