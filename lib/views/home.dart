@@ -22,6 +22,7 @@ class _HomeState extends State<Home> {
   List<CategoriesModel> categories = [];
   List<WallpaperModel> wallpapers = [];
   TextEditingController searchController = TextEditingController();
+  int _currentIndex = 0;
 
   getTrendingWallpapers() async {
     var response = await http.get(
@@ -164,6 +165,28 @@ class _HomeState extends State<Home> {
             scrollController: _scrollController,
           )
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.black,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: Colors.white,),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.category, color: Colors.white,),
+              label: "Category",
+          ),
+        ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
     );
   }
