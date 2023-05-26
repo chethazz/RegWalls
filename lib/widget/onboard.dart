@@ -41,13 +41,13 @@ class _OnBoardState extends State<OnBoard> {
                       ),
                       children: const <TextSpan>[
                         TextSpan(
-                          text: 'Reg',
+                          text: 'Wall',
                           style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
                         TextSpan(
-                          text: 'Walls',
+                          text: 'Rack',
                           style: TextStyle(
                             color: Colors.grey,
                           ),
