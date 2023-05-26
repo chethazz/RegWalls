@@ -8,31 +8,34 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    CategoryImage(categoryName: title.toLowerCase())));
-      },
-      child: Container(
-        margin: const EdgeInsets.only(right: 8),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.white24,
-          ),
-          height: 40,
-          width: 90,
-          alignment: Alignment.center,
-          child: Text(
-            title,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14),
-          ),
+    return Container(
+      margin: const EdgeInsets.only(right: 8),
+      alignment: Alignment.center,
+    decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(15),
+    ),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 18),
+          primary: Colors.white24,
+          onPrimary: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15)
+          )
         ),
-      ),
-    );
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      CategoryImage(categoryName: title.toLowerCase())));
+        },
+        child: Text(
+          title,
+          style: const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14),
+        ),
+        ),
+      );
   }
 }
