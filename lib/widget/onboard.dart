@@ -98,8 +98,8 @@ class _OnBoardState extends State<OnBoard> {
                     padding: const EdgeInsets.all(16),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.white70,
-                        onPrimary: Colors.black,
+                          primary: const Color.fromRGBO(100, 100, 100, 0.4),
+                        onPrimary: Colors.white,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))
                       ),
                       onPressed: () {
