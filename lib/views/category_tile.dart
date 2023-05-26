@@ -16,7 +16,7 @@ class CategoryTile extends StatelessWidget {
     ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 18),
+          padding: EdgeInsets.symmetric(vertical: 14),
           primary: Colors.white24,
           onPrimary: Colors.white,
           shape: RoundedRectangleBorder(
@@ -30,10 +30,14 @@ class CategoryTile extends StatelessWidget {
                   builder: (context) =>
                       CategoryImage(categoryName: title.toLowerCase())));
         },
-        child: Text(
-          title,
-          style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14),
+        child: Container(
+          alignment: Alignment.center,
+          width: 90,
+          child: Text(
+            title,
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14),
+          ),
         ),
         ),
       );
