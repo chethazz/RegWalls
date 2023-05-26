@@ -68,8 +68,9 @@ Widget wallpapersList({
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => ImageView(
+                      PageRouteBuilder(
+                        transitionDuration: const Duration(milliseconds: 400),
+                        pageBuilder: (context, animation1, animation2) => ImageView(
                           imgUrl: wallpaper.src!.portrait,
                           originalUrl: wallpaper.src!.original,
                         ),
