@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:regwalls/data/data.dart';
 import 'package:regwalls/model/wallpaper_mode.dart';
@@ -91,7 +92,13 @@ class _CategoryImageState extends State<CategoryImage> {
       appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
-          title: brandName(),
+          title: Container(
+              height: 50,
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                widget.categoryName.substring(0, 1).toUpperCase() + widget.categoryName.substring(1),
+                style: const TextStyle(color: Colors.white, fontSize: 26),
+              )),
           elevation: 0.0),
       body: Container(
         color: Colors.black,
