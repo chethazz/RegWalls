@@ -79,7 +79,35 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
 
     // Create an empty column to be shown when the category icon is tapped
-    Widget emptyColumn = Column();
+    Widget emptyColumn = Column(
+      children: [
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ScrollConfiguration(
+              behavior: const ScrollBehavior(
+                  androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
+              child: GridView.builder(
+                shrinkWrap: true,
+                controller: _scrollController,
+                itemCount: categories.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  childAspectRatio: 2,
+                  mainAxisSpacing: 16,
+                ),
+                itemBuilder: (context, index) {
+                  return MoreCategoryTile(
+                    title: categories[index].categoryName, imgUrl: categories[index].imgUrl,
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
 
     // Build the existing body column
     Widget existingBodyColumn = Column(
@@ -144,7 +172,7 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
-              itemCount: categories.length,
+              itemCount: 5,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
