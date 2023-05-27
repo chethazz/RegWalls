@@ -77,8 +77,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // Create a flag to determine whether to show the existing body column or an empty column
-    bool showExistingBody = true;
 
     // Create an empty column to be shown when the category icon is tapped
     Widget emptyColumn = Column();
@@ -192,8 +190,6 @@ class _HomeState extends State<Home> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
-            // Update the flag based on the tapped index
-            showExistingBody = index == 0;
           });
         },
       ),
