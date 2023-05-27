@@ -328,30 +328,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
-  once:
-    dependency: "direct main"
-    description:
-      name: once
-      sha256: c27bad0c7b7f0a31e3391532fbca3ef04c85a3ce3b2678fc8dfb38fe0ab53596
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.5.1"
-  package_info_plus:
-    dependency: transitive
-    description:
-      name: package_info_plus
-      sha256: "10259b111176fba5c505b102e3a5b022b51dd97e30522e906d6922c745584745"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.2"
-  package_info_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: package_info_plus_platform_interface
-      sha256: "9bc8ba46813a4cc42c66ab781470711781940780fd8beddd0c3da62506d3a6c6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   path:
     dependency: transitive
     description:

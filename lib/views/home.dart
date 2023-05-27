@@ -7,7 +7,6 @@ import 'package:regwalls/model/wallpaper_mode.dart';
 import 'package:regwalls/views/search.dart';
 import 'package:regwalls/widget/widget.dart';
 import 'package:http/http.dart' as http;
-
 import 'category_tile.dart';
 
 class Home extends StatefulWidget {
@@ -78,6 +77,94 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // Create a flag to determine whether to show the existing body column or an empty column
+    bool showExistingBody = true;
+
+    // Create an empty column to be shown when the category icon is tapped
+    Widget emptyColumn = Column();
+
+    // Build the existing body column
+    Widget existingBodyColumn = Column(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+          ),
+          margin: const EdgeInsets.symmetric(
+            horizontal: 20,
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: searchController,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Search',
+                    hintStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        if (kDebugMode) {
+                          print("Search ${searchController.text}");
+                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Search(
+                              searchQuery: searchController.text,
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Icon(
+                        Icons.search,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        SizedBox(
+          height: 45,
+          child: ScrollConfiguration(
+            behavior: const ScrollBehavior(
+                androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              itemCount: categories.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return CategoryTile(
+                  title: categories[index].categoryName,
+                );
+              },
+            ),
+          ),
+        ),
+        wallpapersList(
+          wallpapers: wallpapers,
+          context: context,
+          scrollController: _scrollController,
+        )
+      ],
+    );
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -85,87 +172,7 @@ class _HomeState extends State<Home> {
         title: brandName(),
         elevation: 0.0,
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-            ),
-            margin: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: searchController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Search',
-                      hintStyle: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                      ),
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          if (kDebugMode) {
-                            print("Search ${searchController.text}");
-                          }
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Search(
-                                searchQuery: searchController.text,
-                              ),
-                            ),
-                          );
-                        },
-                        child: const Icon(
-                          Icons.search,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          SizedBox(
-            height: 45,
-            child: ScrollConfiguration(
-              behavior: const ScrollBehavior(
-                  androidOverscrollIndicator:
-                      AndroidOverscrollIndicator.stretch),
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                itemCount: categories.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return CategoryTile(
-                    title: categories[index].categoryName,
-                  );
-                },
-              ),
-            ),
-          ),
-          wallpapersList(
-            wallpapers: wallpapers,
-            context: context,
-            scrollController: _scrollController,
-          )
-        ],
-      ),
+      body: _currentIndex == 0 ? existingBodyColumn : emptyColumn,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
@@ -174,17 +181,19 @@ class _HomeState extends State<Home> {
         showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white,),
+            icon: Icon(Icons.home, color: Colors.white),
             label: "Home",
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.category, color: Colors.white,),
-              label: "Category",
+            icon: Icon(Icons.category, color: Colors.white),
+            label: "Category",
           ),
         ],
         onTap: (index) {
           setState(() {
             _currentIndex = index;
+            // Update the flag based on the tapped index
+            showExistingBody = index == 0;
           });
         },
       ),

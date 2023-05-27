@@ -42,7 +42,7 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   cool_alert: ^2.0.1
   shared_preferences: ^2.1.1
-  once: ^1.5.1
+
 
 
 
